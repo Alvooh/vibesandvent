@@ -17,8 +17,8 @@ const faqs = [
     answer: 'Standard therapy sessions are 50 minutes long. We also offer extended sessions of 80 minutes for those who need more time.',
   },
   {
-    question: 'Can I change therapists if I'm not satisfied?',
-    answer: 'Yes, absolutely. We want you to feel comfortable with your therapist. If you're not satisfied, we'll help you find a better match at no additional cost.',
+    question: 'Can I change therapists if I \'m not satisfied?',
+    answer: 'Yes, absolutely. We want you to feel comfortable with your therapist. If you \'re not satisfied, we\'ll help you find a better match at no additional cost.',
   },
   {
     question: 'Is online therapy as effective as in-person therapy?',
@@ -26,7 +26,7 @@ const faqs = [
   },
   {
     question: 'How do I know if therapy is right for me?',
-    answer: 'Therapy can benefit anyone looking to improve their mental health, work through challenges, or gain personal insights. Our free consultation can help you determine if it's the right choice for you.',
+    answer: 'Therapy can benefit anyone looking to improve their mental health, work through challenges, or gain personal insights. Our free consultation can help you determine if it\'s the right choice for you.',
   },
 ];
 
