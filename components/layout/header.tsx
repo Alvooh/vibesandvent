@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Heart, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -16,6 +16,7 @@ const navigation = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeLink, setActiveLink] = useState('/');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,65 +27,98 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLinkClick = (href : string) => {
+    setActiveLink(href);
+    if (mobileMenuOpen) setMobileMenuOpen(false); // Close mobile menu on link click
+  };
+
   return (
-    <header className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'glass-effect' : 'bg-transparent'}`}>
-      <nav className="section-container" aria-label="Top">
-        <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2 hover:opacity-90 transition-opacity">
-              <img src="https://vibesandvent.vercel.app/static/media/logo4.66c94c42009ed159651f.png" alt="Vibes & Vent Logo" className="h-8 w-auto" />
-              <span className="text-xl font-bold heading-gradient"></span>
-            </Link>
-          </div>
-          
-          <div className="hidden md:flex md:items-center md:space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
-              >
-                {item.name}
-              </Link>
-            ))}
-            <Button asChild>
-              <Link href="/find-therapist">Find a Therapist</Link>
-            </Button>
-          </div>
-          
-          <div className="flex md:hidden">
-            <button
-              type="button"
-              className="text-gray-700"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </button>
-          </div>
+    <header
+      className={`fixed w-full top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-black bg-opacity-90 backdrop-blur-md shadow-md'
+          : 'bg-black bg-opacity-30' 
+      }`}
+    >
+      <nav
+        className="mx-auto flex items-center justify-between max-w-7xl px-6 sm:px-8 lg:px-12"
+        aria-label="Top"
+      >
+        {/* Logo Section */}
+        <div className="flex items-center">
+          <Link href="/" className="flex items-center space-x-2">
+            <img
+              src="https://vibesandvent.vercel.app/static/media/logo4.66c94c42009ed159651f.png"
+              alt="Vibes & Vent Logo"
+              className="h-8 w-auto"
+            />
+          </Link>
         </div>
-        
+
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex md:items-center md:space-x-10">
+          {navigation.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={`relative text-sm font-medium ${
+                activeLink === item.href
+                  ? 'text-white'
+                  : 'text-white hover:text-[#f37c20]'
+              }`}
+              onClick={() => handleLinkClick(item.href)}
+            >
+              {item.name}
+              {activeLink === item.href && (
+                <span className="absolute left-0 bottom-[-4px] h-[2px] w-full bg-[#f37c20]"></span>
+              )}
+            </Link>
+          ))}
+        </div>
+
+        {/* "Find a Therapist" Button */}
+        <div className="hidden md:block">
+          <Button
+            asChild
+            className="bg-[#f37c20] text-black hover:bg-[#00b5af] transition-colors px-3 py-0.5 rounded-md mx-4 text-sm"
+            id="nav-btn"
+          >
+            <Link href="/find-therapist">Find a Therapist</Link>
+          </Button>
+        </div>
+
+        {/* Mobile Menu Toggle */}
+        <div className="md:hidden">
+          <button
+            type="button"
+            className="text-white"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full glass-effect border-t">
-            <div className="space-y-1 px-4 py-6">
+          <div className="absolute top-full left-0 w-full bg-black bg-opacity-90 shadow-md md:hidden">
+            <div className="space-y-1 px-6 py-4">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block py-2 text-base font-medium text-gray-700 hover:text-blue-600 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
+                  className={`block py-2 text-base font-medium ${
+                    activeLink === item.href
+                      ? 'text-[#f37c20]'
+                      : 'text-white hover:text-[#f37c20]'
+                  }`}
+                  onClick={() => handleLinkClick(item.href)}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="mt-6">
-                <Button asChild className="w-full">
-                  <Link href="/find-therapist">Find a Therapist</Link>
-                </Button>
-              </div>
+              <Button asChild className="w-full bg-[#f37c20] text-black hover:bg-[#00b5af] mt-4">
+                <Link href="/find-therapist">Find a Therapist</Link>
+              </Button>
             </div>
           </div>
         )}

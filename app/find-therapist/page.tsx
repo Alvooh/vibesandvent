@@ -15,26 +15,48 @@ import {
 const therapists = [
   {
     id: 1,
-    name: 'Dr. Sarah Johnson',
+    name: 'Dr. Amina Njoroge',
     specialty: 'Anxiety & Depression',
     experience: '15 years',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
   {
     id: 2,
-    name: 'Dr. Michael Chen',
+    name: 'Dr. Kamau Otieno',
     specialty: 'Relationship Counseling',
     experience: '12 years',
-    image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    image: 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
   {
     id: 3,
-    name: 'Dr. Emily Rodriguez',
+    name: 'Dr. Wanjiru Mwangi',
     specialty: 'Trauma & PTSD',
     experience: '10 years',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    image: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+  {
+    id: 4,
+    name: 'Dr. Okoth Nyong’o',
+    specialty: 'Child & Adolescent Therapy',
+    experience: '8 years',
+    image: 'https://images.unsplash.com/photo-1512374382149-e4eb32a05b84?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+  {
+    id: 5,
+    name: 'Dr. Nyambura Kiplagat',
+    specialty: 'Grief Counseling',
+    experience: '6 years',
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+  {
+    id: 6,
+    name: 'Dr. Omondi Achieng',
+    specialty: 'Stress Management',
+    experience: '14 years',
+    image: 'https://images.unsplash.com/photo-1603415526960-f8f76e44f0d8?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
 ];
+
 
 export default function FindTherapistPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -42,7 +64,7 @@ export default function FindTherapistPage() {
 
   const filteredTherapists = therapists.filter((therapist) => {
     const matchesSearch = therapist.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesSpecialty = !specialty || therapist.specialty === specialty;
+    const matchesSpecialty = specialty === 'all' || therapist.specialty === specialty;
     return matchesSearch && matchesSpecialty;
   });
 
@@ -75,7 +97,7 @@ export default function FindTherapistPage() {
                 <SelectValue placeholder="Select specialty" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Specialties</SelectItem>
+                <SelectItem value="all">All Specialties</SelectItem>
                 <SelectItem value="Anxiety & Depression">Anxiety & Depression</SelectItem>
                 <SelectItem value="Relationship Counseling">Relationship Counseling</SelectItem>
                 <SelectItem value="Trauma & PTSD">Trauma & PTSD</SelectItem>
@@ -103,7 +125,10 @@ export default function FindTherapistPage() {
                 </div>
               </div>
               <div className="mt-4">
-                <Button className="w-full">Book Consultation</Button>
+              <Button className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition">
+                       Book Consultation
+              </Button>
+
               </div>
             </div>
           ))}

@@ -7,6 +7,10 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
+.glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+}
 
 @layer base {
   :root {
@@ -64,4 +68,11 @@
 
 .hover-transform {
   @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+}
+#nav-btn{
+  padding: 2px 8px; /* Reduced padding for smaller height */
+  border-radius: 6px; /* Rounded corners */
+ 
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+  margin:  16px; /* Horizontal margin */
 }
